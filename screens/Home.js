@@ -14,7 +14,6 @@ const TextGenrationComponent = ({title, bio, navigation}) => {
     </TouchableOpacity>
   );
 };
-
 const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
