@@ -14,7 +14,7 @@
 <br>
 
 # Context
-Rizzler is a mobile application that utilizes the GPT architecture to provide users with various options, including sentence rephrasing, lyrics generation, reply generation, and much more. This app is finely tuned to provide users with accurate and useful results.
+Rizzler is a virtual 3d character that utilizes the GPT architecture to provide users with various options, including sentence rephrasing, lyrics generation, reply generation, and much more. This app is finely tuned to provide users with accurate and useful results.
 <br>
 
 
