@@ -21,29 +21,29 @@ Rizzler is a mobile application that utilizes the GPT architecture to provide us
 
 ## Features
 
--Sentence rephraser to generate alternative ways of saying the same thing
--Lyrics generator to create original song lyrics based on user input
--Reply generator to generate responses to various prompts, such as emails or text messages
--Fine-tuned accuracy to provide users with the best results possible
+- Sentence rephraser to generate alternative ways of saying the same thing
+- Lyrics generator to create original song lyrics based on user input
+- Reply generator to generate responses to various prompts, such as emails or text messages
+- Fine-tuned accuracy to provide users with the best results possible
 <br>
   
  ## Getting Started
 
--Install the Rizzler app.
--Choose the option that best fits your needs, such as sentence rephraser or lyrics generator.
--Input the text or prompts you want to rephrase or generate.
--Wait for Rizzler to generate the results.
--Use the results provided by Rizzler to enhance your writing or reply to messages.
+- Install the Rizzler app.
+- Choose the option that best fits your needs, such as sentence rephraser or lyrics generator.
+- Input the text or prompts you want to rephrase or generate.
+- Wait for Rizzler to generate the results.
+- Use the results provided by Rizzler to enhance your writing or reply to messages.
  
  
  ## Troubleshooting
 
 If you encounter any issues while using Rizzler, please try the following:
 
--Ensure that you have a stable internet connection.
--Verify that you have installed the latest version of Rizzler.
--Verify your OpenAI API.
--If you are experiencing issues with a particular option, try using another option or contact Rizzler support for assistance.
+- Ensure that you have a stable internet connection.
+- Verify that you have installed the latest version of Rizzler.
+- Verify your OpenAI API.
+- If you are experiencing issues with a particular option, try using another option or contact Rizzler support for assistance.
  <br>
 
 ### Steps to run it
