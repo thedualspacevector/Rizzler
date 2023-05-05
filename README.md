@@ -14,38 +14,36 @@
 <br>
 
 # Context
-The ESP Controller App is a mobile application that allows you to control your ESP devices from your smartphone or tablet. With this app, you can easily connect to your ESP devices and send commands to them, such as turning on or off an LED, Motors, changing the color of an RGB light, or reading sensor data.
+Rizzler is a mobile application that utilizes the GPT architecture to provide users with various options, including sentence rephrasing, lyrics generation, reply generation, and much more. This app is finely tuned to provide users with accurate and useful results.
 <br>
 
 
 
 ## Features
 
-- Easy to use interface for controlling ESP devices
-- Connects to ESP devices using Wi-Fi
-- Supprts multiple ESP devices
-- Sends commands to ESP devices via UDP
-- Displays sensor data from ESP devices in real-time
-- Customizable commands support for new devices
+-Sentence rephraser to generate alternative ways of saying the same thing
+-Lyrics generator to create original song lyrics based on user input
+-Reply generator to generate responses to various prompts, such as emails or text messages
+-Fine-tuned accuracy to provide users with the best results possible
 <br>
   
  ## Getting Started
 
-- Connect your ESP device to a Wi-Fi network and obtain its IP address.
-- Install the ESP Controller App.
-- Open the app and tap the "search" button to add a new device.
-- Tap "Modes" to select the modes.
-- Open the control interface for the device.
-- Use the interface to send commands to the ESP device.
+-Install the Rizzler app.
+-Choose the option that best fits your needs, such as sentence rephraser or lyrics generator.
+-Input the text or prompts you want to rephrase or generate.
+-Wait for Rizzler to generate the results.
+-Use the results provided by Rizzler to enhance your writing or reply to messages.
  
  
  ## Troubleshooting
 
-If you are unable to discover the ESP devices on the network, you may need to check the following:
+If you encounter any issues while using Rizzler, please try the following:
 
-- Ensure that the ESP devices are connected to the same Wi-Fi network as your mobile device.
-- Check that the ESP devices are powered on and connected to the network.
-- Verify that the broadcast IP address used in the app matches the network configuration of your Wi-Fi network.
+-Ensure that you have a stable internet connection.
+-Verify that you have installed the latest version of Rizzler.
+-Verify your OpenAI API.
+-If you are experiencing issues with a particular option, try using another option or contact Rizzler support for assistance.
  <br>
 
 ### Steps to run it
