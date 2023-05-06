@@ -3,11 +3,13 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator,
 import React, { useState, useRef, useEffect } from 'react';
 import {useIsFocused} from '@react-navigation/native';
 
+import { API_KEY } from '../config';
+
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import OpenAI from 'openai-api';
 
-const openai = new OpenAI('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');
+const openai = new OpenAI(API_KEY);
 
 const generateText = async ( prompt,temperature=0.5, frequencyPenalty=0.4) => {
 
@@ -163,13 +165,13 @@ const handleSubmit = () => {
       <SafeAreaView style={styles.header}>
         <Text style={styles.headerText}>{route.params.title}</Text>
         <TouchableOpacity>
-          <Icon name="bars" size={20} color="black" />
+          <Icon name="bars" size={20} color="white" />
         </TouchableOpacity>
       </SafeAreaView>
       <SafeAreaView style={styles.body}>
-      <TextInput style={styles.formInput} placeholder="Enter a prompt" placeholderTextColor={"#000000"} value={prompt} onChangeText={handlePromptChange} />
+      <TextInput style={styles.formInput} placeholder="Enter a prompt" placeholderTextColor={"#fff"} value={prompt} onChangeText={handlePromptChange} />
         {isLoading ? 
-          <ActivityIndicator size="large" color="#000000" /> : null }
+          <ActivityIndicator size="large" color="#fff" /> : null }
         {error ? 
           <Text style={styles.errorText}>{error}</Text> : null }
         {showOutputBox ?
@@ -178,7 +180,7 @@ const handleSubmit = () => {
             <Text
               style={{
                 fontSize: 16,
-                color: '#000000',
+                color: '#fff',
               }}
              selectable >{output}</Text>
             </ScrollView>
@@ -198,7 +200,7 @@ const handleSubmit = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#000000"
   },
   header: {
     width: '100%',
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   menuIcon: {
     width: 24,
@@ -226,10 +228,10 @@ const styles = StyleSheet.create({
   card: {
     width: '80%',
     height: 'auto',
-    backgroundColor: 'white',
+    backgroundColor: '#2a2a2a',
     borderRadius: 25,
     padding: 20,
-    shadowColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.26,
     shadowRadius: 6,
@@ -239,45 +241,46 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   cardSubtitle: {
     fontSize: 18,
-    color: 'black',
+    color: 'white',
   },
   form: {
     width: '80%',
     marginTop: 20,
+    marginBottom: 20,
+    color: 'white',
   },
   formInput: {
     width: '80%',
     height: 50,
-    backgroundColor: 'white',
+    backgroundColor: '#2a2a2a',
     borderRadius: 25,
     padding: 10,
-    shadowColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.26,
     shadowRadius: 6,
     elevation: 5,
     marginBottom: 20,
-    color: 'black',
+    color: 'white',
   },
   
   formButton: {
     width: '100%',
     height: 40,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    color: 'white',
     },
     formButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     },
 });
 
