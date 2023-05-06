@@ -64,3 +64,6 @@ buck-out/
 /vendor/bundle/
 
 config.js
+
+yarn.lock
+
