@@ -4,8 +4,29 @@ import React from 'react'
 
 const Profile = () => {
   return (
-    <View>
-      <Text>Profile</Text>
+    <View style={styles.container}>
+    <View style={styles.rectangle}>
+      
+    <Image style={{
+          alignSelf:'center', 
+          width: 200, height: 200, 
+          marginTop: 30, 
+          shadowColor: '#000', 
+          shadowOffset: {width: 0, height: 40},
+          shadowOpacity: 0.8, shadowRadius: 12, elevation: 50,  shadowOpacity: 50}}
+          source={require('../assets/icons/Logo.png')} />
+    
+    <Text style={{
+      fontFamily:'Urbanist-Medium',
+      marginLeft: '25%',
+      fontSize: 25,  
+      color: '#fff', 
+      marginTop: 15, }}>
+      Welcome to Rizzlr
+    </Text>
+
+    
+    </View>
     </View>
   )
 }
