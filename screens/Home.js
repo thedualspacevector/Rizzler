@@ -1,11 +1,11 @@
-import { ScrollView, Text, StyleSheet, StatusBar, TouchableOpacity, SafeAreaView } from 'react-native';
+import { ScrollView, Text, StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, View } from 'react-native';
 
 const TextGenrationComponent = ({title, bio, navigation}) => {
   
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Output', {title, }
+        navigation.navigate('Output', {title }
         );
       }}
       style={styles.template}>
@@ -19,7 +19,9 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Text style={styles.templatesText}>Text Generation</Text>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+       style={styles.scrollView}>
         <TextGenrationComponent
           title="Lyrics Generator"
           bio="Enter the name of an artist and generate lyrics"
@@ -32,7 +34,7 @@ const HomeScreen = ({navigation}) => {
         />
         <TextGenrationComponent
           title='Rizzler'
-          bio='Help you get laid'
+          bio='Rizz a kid'
           navigation={navigation}
         />
         <TextGenrationComponent
@@ -72,7 +74,7 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#eee',
+    backgroundColor: '#000',
     flex: 1,
   },
   templatesText: {
@@ -82,16 +84,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     marginBottom: 10,
-    color: 'black',
+    color: 'white',
   },
   scrollView: {
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 25,
-    backgroundColor: '#eee',
+    backgroundColor: '#000',
   },
   template: {
-    backgroundColor: 'white',
+    backgroundColor: '#2a2a2a',
     borderRadius: 25,
     padding: 20,
     marginBottom: 10,
@@ -100,11 +102,11 @@ const styles = StyleSheet.create({
   templateTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'black',
+    color: '#fff',
   },
   templateBio: {
     fontSize: 14,
-    color: 'black',
+    color: '#ccc',
   },
 });
 
