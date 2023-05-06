@@ -183,6 +183,10 @@ const handleSubmit = () => {
                 color: '#fff',
               }}
              selectable >{output}</Text>
+             <TouchableOpacity style={styles.copyButton} onPress={() => Clipboard.setString(output)}>
+              <Icon name="bookmark" size={18} color="#cccc" />
+            </TouchableOpacity>
+            
             </ScrollView>
             : null }
 
@@ -230,7 +234,7 @@ const styles = StyleSheet.create({
     height: 'auto',
     backgroundColor: '#2a2a2a',
     borderRadius: 25,
-    padding: 20,
+    padding: 10,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.26,
@@ -246,6 +250,22 @@ const styles = StyleSheet.create({
   cardSubtitle: {
     fontSize: 18,
     color: 'white',
+  },
+  copyButton: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#2a2a2a',
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red',
+    marginBottom: 20,
   },
   form: {
     width: '80%',

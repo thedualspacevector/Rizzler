@@ -3,9 +3,11 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Voice from '@react-native-voice/voice';
 import OpenAI from 'openai-api';
+import { API_KEY } from '../config';
+
+const openai = new OpenAI(API_KEY);
+
 import { NativeEventEmitter, NativeModules } from 'react-native';
-
-
 
 const eventEmitter = new NativeEventEmitter(NativeModules.VoiceModule);
 
