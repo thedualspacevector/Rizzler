@@ -3,8 +3,8 @@ import OpenAI from 'openai-api';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, ToastAndroid, Image } from 'react-native';
 import Voice from '@react-native-voice/voice';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const openai = new OpenAI('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');
+import { API_KEY } from '../config';
+const openai = new OpenAI(API_KEY);
 
 
 const RizzBot = () => {
@@ -118,9 +118,7 @@ const RizzBot = () => {
           ) : (
             <Icon name="microphone" 
             size={30} 
-            color="#fff" 
-             
-
+            color="#fff"
             />
           )
         }
