@@ -85,7 +85,7 @@ const AppNavigator = () => {
         }}
       >
         <Stack.Screen name="SignedIn" component={SignedIn} />
-        <Stack.Screen name="OutputScreen" component={OutputScreen} />
+        <Stack.Screen name="Output" component={OutputScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
