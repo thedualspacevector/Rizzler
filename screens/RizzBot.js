@@ -1,131 +1,165 @@
-import { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import Voice from '@react-native-voice/voice';
+import React, { useState } from 'react';
 import OpenAI from 'openai-api';
-import { API_KEY } from '../config';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, ToastAndroid, Image } from 'react-native';
+import Voice from '@react-native-voice/voice';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const openai = new OpenAI(API_KEY);
+const openai = new OpenAI('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');
 
-import { NativeEventEmitter, NativeModules } from 'react-native';
-
-const eventEmitter = new NativeEventEmitter(NativeModules.VoiceModule);
-
-const generateText = async (prompt, temperature = 0.5, frequencyPenalty = 0.4) => {
-    try {
-      const response = await openai.complete({
-        engine: 'text-davinci-002',
-        prompt,
-        maxTokens: 300,
-        temperature,
-        topP: 1,
-        presencePenalty: 0,
-        frequencyPenalty,
-        bestOf: 1,
-        n: 1,
-        stop: ['\n\n'],
-      });
-      console.log('OpenAI response:', response);
-      return response.choices[0].text;
-    } catch (err) {
-      console.log(err);
-      console.log('OpenAI error:', err);
-      console.log('OpenAI error:', err.message);
-      throw err;
-    }
-  };
 
 const RizzBot = () => {
+  const [prompt, setPrompt] = useState('');
+  const [output, setOutput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
-  const [inputText, setInputText] = useState('');
-  const [outputText, setOutputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [holdTimeout, setHoldTimeout] = useState(null);
-
-  useEffect(() => {
-    const subscription = eventEmitter.addListener(
-      'onSpeechResults',
-      (event) => {
-        const text = event.value[0];
-        setInputText(text);
-      },
-    );
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  const onStartRecording = () => {
-    setIsRecording(true);
-    setHoldTimeout(
-      setTimeout(() => {
-        try {
-          Voice.start('en-US');
-        } catch (error) {
-          console.log(error);
-        }
-      }, 500),
-    );
-  };
-
-  const onStopRecording = async () => {
-    setIsRecording(false);
-    clearTimeout(holdTimeout);
-    try {
-      await Voice.stop();
-      generateResponse();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const generateResponse = async () => {
-    console.log('Generating response');
+  
+  const generateOutput = async () => {
     setIsLoading(true);
     try {
-      if (inputText) {
-        const prompt = `The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman ${inputText}\nAI`;
-        const response = await generateText(prompt);
-        setOutputText(response);
-        }
-    } catch (error) {
-        console.log(error);
+      const response = await openai.complete({
+        engine: 'text-davinci-003',
+        prompt: `Asking Philosopher AI: "${prompt}" ...\n\n`,
+        maxTokens: 300,
+        n: 1,
+        temperature: 0.7,
+        topP: 1,
+        presencePenalty: 0,
+        frequencyPenalty : 0.3,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ['\n\n'],
+      });
+      setOutput(response.data.choices[0].text);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setOutput('');
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    };
+  };
 
-    useEffect(() => {
-        if (inputText) {
-            generateResponse();
-        }
-    }, [inputText]);
+
+  const startRecording = async () => {
+    try {
+      await Voice.start('en-US');
+      setIsRecording(true);
+      setPrompt('');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const stopRecording = async () => {
+    try {
+      await Voice.stop();
+      setIsRecording(false);
+      generateOutput();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onSpeechResults = (e) => {
+    setPrompt(e.value[0]);
+  };
+
+  const onSpeechEnd = () => {
+    generateOutput();
+  };
+
+  Voice.onSpeechResults = onSpeechResults;
+  Voice.onSpeechEnd = onSpeechEnd;
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TouchableOpacity
-        onPressIn={onStartRecording}
-        onPressOut={onStopRecording}
-        style={{
-          backgroundColor: isRecording ? 'red' : 'green',
-          padding: 20,
-          borderRadius: 10,
-          marginBottom: 20,
-        }}>
-        <Icon name="microphone" size={30} color="#fff" />
-      </TouchableOpacity>
-
-        <Text style={{ color: '#fff', marginBottom: 20 }}>{inputText}</Text>
+    <View style={styles.container}>
+      
+      <View style={{
+        backgroundColor: '#000',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 100,
+        width: '100%',
+        height: 'auto'
+      }}>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 16,
+            marginBottom: 10,
+            alignSelf: 'center',
+          }}>{prompt}</Text>
         {isLoading ? (
-            <ActivityIndicator size="large" color="#fff" />
+          <ActivityIndicator size="large" color="#fff" />
         ) : (
-            <Text style={{ color: '#fff', marginBottom: 20 }}>{outputText}</Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 16,
+            }}>{output}</Text>
         )}
 
-        
+      </View>
+      <TouchableOpacity
+        onPressIn={startRecording}
+        onPressOut={stopRecording}
+        style={{
+          backgroundColor: 'black',
+          borderRadius: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'absolute',
+          bottom: 100,
+
+        }}>
+        {
+          isRecording ? (
+            <Image source={require('../assets/icons/animate.gif')} style={{ width: 255, height: 255 }} />
+          ) : (
+            <Icon name="microphone" 
+            size={30} 
+            color="#fff" 
+             
+
+            />
+          )
+        }
+      </TouchableOpacity>
     </View>
-    );
+  );
 };
 
-export default RizzBot;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  output: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  placeholder: {
+    color: '#fff',
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
+});
+
+export default RizzBot
 
 
