@@ -1,56 +1,143 @@
-import { View, Text, Image, StyleSheet, Animated, Easing} from 'react-native'
-import React from 'react'
+import React, { useState } from 'react';
+import OpenAI from 'openai-api';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Voice from '@react-native-voice/voice';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
+const openai = new OpenAI('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');
 
 const Profile = () => {
+  const [prompt, setPrompt] = useState('');
+  const [output, setOutput] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+
+  const generateOutput = async () => {
+    try {
+      const response = await openai.complete({
+        engine: 'text-davinci-003',
+        prompt: `Question for Friendly AI bot: ${prompt}\n\n Paranoid and problematic answers: \n\n`,
+        maxTokens: 300,
+        n: 1,
+        temperature: 0.7,
+        topP: 1,
+        presencePenalty: 0,
+        frequencyPenalty : 0.3,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ['\n\n'],
+
+      });
+      setOutput(response.data.choices[0].text);
+    } catch (err) {
+      console.log(err);
+      setOutput('');
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      await Voice.start('en-US');
+      setIsRecording(true);
+      setPrompt('');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const stopRecording = async () => {
+    try {
+      await Voice.stop();
+      setIsRecording(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onSpeechResults = (event) => {
+    setPrompt(event.value[0]);
+  };
+
+  Voice.onSpeechResults = onSpeechResults;
+
   return (
     <View style={styles.container}>
-    <View style={styles.rectangle}>
-      
-    <Image style={{
-          alignSelf:'center', 
-          width: 200, height: 200, 
-          marginTop: 30, 
-          shadowColor: '#000', 
-          shadowOffset: {width: 0, height: 40},
-          shadowOpacity: 0.8, shadowRadius: 12, elevation: 50,  shadowOpacity: 50}}
-          source={require('../assets/icons/Logo.png')} />
-    
-    <Text style={{
-      fontFamily:'Urbanist-Medium',
-      marginLeft: '25%',
-      fontSize: 25,  
-      color: '#fff', 
-      marginTop: 15, }}>
-      Welcome to Rizzlr
-    </Text>
+      <TouchableOpacity
+        onPressIn={startRecording}
+        onPressOut={stopRecording}
+        style={{
+          backgroundColor: isRecording ? 'red' : 'green',
+          padding: 20,
+          borderRadius: 10,
+          marginBottom: 20,
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignSelf: 'center',
+        }}>
+        <Icon name="microphone" size={30} color="#fff" />
+      </TouchableOpacity>
+      <View style={{
+        backgroundColor: '#000',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 20,
+        width: '100%',
+        height: 200,
 
-    
+      }}>
+        <TextInput
+          style={{
+            color: '#fff',
+            fontSize: 16,
+            marginBottom: 10,
+          }}> {prompt}</TextInput>
+        {prompt.length > 0 &&
+          <TouchableOpacity style={styles.button} onPress={generateOutput}>
+            <Text style={styles.buttonText}>Generate Output</Text>
+          </TouchableOpacity>
+        }
+        {output ? (
+          <Text style={styles.output}>{output}</Text>
+        ) : (
+          <Text style={styles.placeholder}>Output will appear here</Text>
+        )}
+      </View>
     </View>
-    </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
+    padding: 20,
     backgroundColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
+  button: {
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  output: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  placeholder: {
+    color: '#fff',
+    fontSize: 16,
+    opacity: 0.5,
+  },
+});
 
-  rectangle: {
-    width: '100%',
-    height: '40%',
-    backgroundColor: '#606060',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
-    padding: 10,
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 40},
-    shadowOpacity: 1, shadowRadius: 20, elevation: 20,
-
-    alignSelf: 'center',
- },
- });
+export default Profile;
 
 
-export default Profile

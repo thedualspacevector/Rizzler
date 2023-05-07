@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import {useIsFocused} from '@react-navigation/native';
 
 import { API_KEY } from '../config';
-
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import OpenAI from 'openai-api';
