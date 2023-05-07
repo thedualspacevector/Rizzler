@@ -104,17 +104,24 @@ const RizzBot = () => {
         onPressIn={startRecording}
         onPressOut={stopRecording}
         style={{
-          backgroundColor: 'black',
-          borderRadius: 10,
+          backgroundColor: '#000',
+          width: 80,
+          height: 80,
+
           alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
-          bottom: 100,
+          alignSelf: 'center',
+          bottom: 70,
 
         }}>
         {
           isRecording ? (
-            <Image source={require('../assets/icons/animate.gif')} style={{ width: 255, height: 255 }} />
+            <Image source={require('../assets/icons/animate2.gif')} style={{
+                width: 150,
+                height: 150, 
+               position:'absolute',
+               }} />
           ) : (
             <Icon name="microphone" 
             size={30} 
