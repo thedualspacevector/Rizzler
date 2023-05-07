@@ -7,6 +7,7 @@ import { API_KEY } from '../config';
 const openai = new OpenAI(API_KEY);
 
 
+
 const RizzBot = () => {
   const [prompt, setPrompt] = useState('');
   const [output, setOutput] = useState('');

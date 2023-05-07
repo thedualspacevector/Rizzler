@@ -14,6 +14,7 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import OutputScreen from "./screens/OutputScreen";
 import RizzBot from "./screens/RizzBot";
+import SearchScreen from "./screens/SearchScreen";
 
 
 
@@ -46,6 +47,8 @@ const SignedIn = () => {
               iconName = focused ? "user" : "user";
             } else if (route.name === "RizzBot") {
               iconName = focused ? "ghost" : "ghost";
+            }else if (route.name === "SearchScreen") {
+              iconName = focused ? "search" : "search";
             }
 
             if (focused) {
@@ -67,6 +70,7 @@ const SignedIn = () => {
         } 
          />
         <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="SearchScreen" component={SearchScreen} />
       </Tab.Navigator>
   );
 };
