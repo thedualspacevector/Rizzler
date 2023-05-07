@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import OpenAI from 'openai-api';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, ToastAndroid, Image } from 'react-native';
 import Voice from '@react-native-voice/voice';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { API_KEY } from '../config';
 const openai = new OpenAI(API_KEY);
 
