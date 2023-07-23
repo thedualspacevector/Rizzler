@@ -1,4 +1,3 @@
-
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, BackHandler, ScrollView, SafeAreaView, } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import {useIsFocused} from '@react-navigation/native';
@@ -7,11 +6,8 @@ import { API_KEY } from '../config';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import OpenAI from 'openai-api';
-
 const openai = new OpenAI(API_KEY);
-
 const generateText = async ( prompt,temperature=0.5, frequencyPenalty=0.4) => {
-
   try {
     const response = await openai.complete({
       engine: 'text-davinci-003',
@@ -72,9 +68,22 @@ const generateOutput = async () => {
   let finalPrompt = '';
   let temperature = 0.5;
   let frequencyPenalty = 0.4;
-  if (route.params.title === 'Lyrics Generator') {
+  if (route.params.title === 'Sentence Rephraser') {
+    finalPrompt = `Original Text: ${prompt}\n\nProfessional Rephrase: \n\n`;
+    temperature = 0.6;
+    frequencyPenalty = 0.3;
+  } else if (route.params.title === 'Creative Replies') {
+    finalPrompt = `Her Text: ${prompt}\n\n Flirty Reply: \n\n`;
+    temperature = 0.6;
+    frequencyPenalty = 0.3;
+  }
+  else if (route.params.title === 'Lyrics Generator') {
     finalPrompt = `Genre: ${prompt}\n\n Lyrics: \n\n`;
     temperature = 0.6;
+    frequencyPenalty = 0.3;
+  } else if (route.params.title === 'Conversation Starters') {
+    finalPrompt = `Topics: ${prompt}\n\n Conversation Starter: \n\n`;
+    temperature = 0.7;
     frequencyPenalty = 0.3;
     
   } else if (route.params.title === 'Conversation Starters') {
@@ -123,7 +132,6 @@ const generateOutput = async () => {
   const minCharsPerLine = 10;
   const stop = ['\n\n'];
   let output = '';
-  let chars = 0;
   let lines = 0;
   let newOutput = '';
 
@@ -147,6 +155,7 @@ const generateOutput = async () => {
   setIsLoading(false);
   setShowOutputBox(true);
   setOutput(output);
+  console.log(finalPrompt)
   setStopGeneration(false);
 };
 
@@ -232,7 +241,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 'auto',
     backgroundColor: '#2a2a2a',
-    borderRadius: 25,
+    borderRadius: 15,
     padding: 10,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -276,7 +285,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     backgroundColor: '#2a2a2a',
-    borderRadius: 25,
+    borderRadius: 15,
     padding: 10,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -291,7 +300,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     backgroundColor: 'white',
-    borderRadius: 25,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,

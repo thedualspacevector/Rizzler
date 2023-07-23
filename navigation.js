@@ -1,6 +1,6 @@
 
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 
@@ -16,7 +16,7 @@ import OutputScreen from "./screens/OutputScreen";
 import RizzBot from "./screens/RizzBot";
 import SearchScreen from "./screens/SearchScreen";
 
-
+import LinearGradient from "react-native-linear-gradient";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,12 +30,14 @@ const SignedIn = () => {
           tabBarInactiveTintColor: "#6c757d",
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: 'rgba(0,0,0,0)',
+            backgroundColor: 'transparent',
             borderTopColor: 'transparent',
             height: 70,
+            elevation: 3 ,
+            zIndex: 0,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
             position: 'absolute',
-            zIndex: 1,
-            elevation: 0,
           },
           tabBarButton: (props) => <TouchableOpacity {...props} />,
           tabBarIcon: ({ focused, color, size }) => {
@@ -47,7 +49,7 @@ const SignedIn = () => {
               iconName = focused ? "user" : "user";
             } else if (route.name === "RizzBot") {
               iconName = focused ? "ghost" : "ghost";
-            }else if (route.name === "SearchScreen") {
+            } else if (route.name === "SearchScreen") {
               iconName = focused ? "search" : "search";
             }
 
@@ -63,12 +65,15 @@ const SignedIn = () => {
       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="RizzBot" component={RizzBot} options={
-          { tabBarVisible: false ,
+          {
+            tabBarVisible: false,
             headerShown: false,
             tabBarStyle: {
-              display: 'none'}}
-        } 
-         />
+              display: 'none'
+            }
+          }
+        }
+        />
         <Tab.Screen name="Profile" component={Profile} />
         <Tab.Screen name="SearchScreen" component={SearchScreen} />
       </Tab.Navigator>
@@ -82,8 +87,7 @@ const AppNavigator = () => {
         initialRouteName="SignedIn"
         screenOptions={{
           headerShown: false,
-        }}
-      >
+        }}>
         <Stack.Screen name="SignedIn" component={SignedIn} />
         <Stack.Screen name="Output" component={OutputScreen} />
       </Stack.Navigator>

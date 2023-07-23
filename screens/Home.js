@@ -22,6 +22,16 @@ const HomeScreen = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
        style={styles.scrollView}>
+       <TextGenrationComponent
+          title="Sentence Rephraser"
+          bio="Rephrase a sentence"
+          navigation={navigation}
+        />
+        <TextGenrationComponent
+          title="Creative Replies"
+          bio="Generate creative replies"
+          navigation={navigation}
+        />
         <TextGenrationComponent
           title="Lyrics Generator"
           bio="Enter the name of an artist and generate lyrics"
@@ -67,6 +77,11 @@ const HomeScreen = ({navigation}) => {
           bio='Generate an email'
           navigation={navigation}
         />
+        <View 
+          style={{
+            height: 70,
+          }}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -93,8 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   template: {
-    backgroundColor: '#2a2a2a',
-    borderRadius: 25,
+    backgroundColor: 'rgba(20,20,20 ,1 )',
+    borderRadius: 10,
     padding: 20,
     marginBottom: 10,
     color: 'black',
